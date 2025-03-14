@@ -9,13 +9,12 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-df=pd.read_csv('heart.csv')    #to read the file
-##print(df.head())
+df=pd.read_csv('heart.csv')   
+print(df.head())
 
 # Create a plot to display the percentage of the positive and negative heart disease
 labels = ['yes', 'No']
 values = df['HeartDisease'].value_counts().values
-
 plt.pie(values, labels=labels, autopct='%1.0f%%')
 plt.title('HeartDisease')
 plt.show()
@@ -32,7 +31,6 @@ plt.show()
 # Get min, max and average of the age
 print('Min age: ', min(df['Age']))
 print('Max age: ', max(df['Age']))
-
 
 
 # Display age distribution based on heart disease
@@ -68,22 +66,20 @@ df['ST_Slope'] = le.fit_transform(df['ST_Slope'])
 
 
 
-
-
 NB = GaussianNB()
 
 x=df.drop(columns=['HeartDisease'])
-y=df['HeartDisease']      #to create the variable
+y=df['HeartDisease']     
 print(x)
 print(y)
 
 
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=4)   #split the val
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=4)  
 print(x_test)
 print(y_test)
 
 
-NB.fit(x_train, y_train)  #train the data
+NB.fit(x_train, y_train)  
 
 y_pred=NB.predict(x_test)
 print('Naive Bayes ACCURACY is', accuracy_score(y_test,y_pred))
@@ -98,7 +94,7 @@ print('KNN ACCURACY is', accuracy_score(y_test,y_pred_knn))
 
 
 
-
+##sample output with new input value 
 testPrediction = NB.predict([[50,1,0,145,0,1,1,139,1,0.7,1]])
 if testPrediction==1:
     print(testPrediction,"The Patient Have Heart Disease,please consult the Doctor")
@@ -108,10 +104,7 @@ else:
 import pickle
 pickle.dump(NB,open('model.pkl','wb'))
 
-##Sample Test
-##39,1,2,120,339,0,1,170,0,0,2
-##36,1,1,120,166,0,1,138,0,0,2
-##51,0,0,120,0,1,1,127,1,1.5,2
+
 
 
 
